@@ -49,11 +49,14 @@ router.post('/login', (req,res) => {
     if(email == 'coder@coder.com' && password == "coderpass") {
         let token = jwt.sign({ email, password, role: "user"}, "coderSecret", { expiresIn: "24h" })
         res.send({ message: "Inicio de sesión exitoso", token})
+        //res.redirect('/current');
+
     }
 })
 
 router.get('/current', passport.authenticate('jwt',{session:false}),(res,req) => {
-    res.send(req.user)
+    //res.send(req.user)
+    res.redirect('/current');
 })
 
 export default router;
