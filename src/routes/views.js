@@ -9,11 +9,12 @@ router.get('/login', isNotAuthenticated, (req, res) => {
 
 router.get('/register', isNotAuthenticated, (req, res) => {
     res.render('register');
+    
 });
 
-router.get('/profile', isAuthenticated, (req, res) => {
+router.get('/current', isAuthenticated, (req, res) => {
     // res.render('profile', { user: req.session.user });
-    res.render('profile');
+    res.render('current');
 });
 
 export default router;

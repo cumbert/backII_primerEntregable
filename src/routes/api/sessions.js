@@ -2,8 +2,12 @@ import { Router } from 'express';
 import User from '../../models/user.js';
 import { createHash, isValidPassword } from '../../utils.js';
 import passport from 'passport';
+import jwt from 'jsonwebtoken'; // Importa jsonwebtoken correctamente
+
 
 const router = Router();
+
+/*
 
 router.post('/register', passport.authenticate('register', { failureRedirect: '/failregister' }), async (req, res) => {
     res.send({ status: "success", message: "usuario registrado" })
@@ -38,5 +42,18 @@ router.post('/logout', (req, res) => {
         res.redirect('/login');
     });
 });
+*/
+
+router.post('/login', (req,res) => {
+    const { email, password } = req.body
+    if(email == 'coder@coder.com' && password == "coderpass") {
+        let token = jwt.sign({ email, password, role: "user"}, "coderSecret", { expiresIn: "24h" })
+        res.send({ message: "Inicio de sesión exitoso", token})
+    }
+})
+
+router.get('/current', passport.authenticate('jwt',{session:false}),(res,req) => {
+    res.send(req.user)
+})
 
 export default router;

@@ -8,6 +8,7 @@ import sessionsRouter from './routes/api/sessions.js';
 import viewsRouter from './routes/views.js';
 import passport from 'passport';
 import initializePassport from './config/passport.config.js';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
@@ -23,16 +24,21 @@ app.set('views', './src/views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(session({
+app.use(session({ 
     secret: 'secretkey',
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: 'mongodb+srv://admin:Coder2024@cluster0.8vmpp.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0' })
 }));
 
+
+
+app.use(express.static('public'))
+app.use(express.json())
+app.use(cookieParser())
 initializePassport()
 app.use(passport.initialize())
-app.use(passport.session())
+app.use(passport.session()) 
 
 app.use('/api/sessions', sessionsRouter);
 app.use('/', viewsRouter);
