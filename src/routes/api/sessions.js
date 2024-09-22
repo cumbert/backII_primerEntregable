@@ -7,17 +7,19 @@ import jwt from 'jsonwebtoken'; // Importa jsonwebtoken correctamente
 
 const router = Router();
 
-/*
+
 
 router.post('/register', passport.authenticate('register', { failureRedirect: '/failregister' }), async (req, res) => {
     res.send({ status: "success", message: "usuario registrado" })
 });
+
 
 router.get('/failregister', async (req, res) => {
     console.log('Estrategia fallida')
     res.send({ error: "Failed" })
 })
 
+/*
 router.post('/login', passport.authenticate('login', { failureRedirect: '/faillogin' }), async (req, res) => {
     // const { email, password } = req.body;
     if (!req.user) return res.status(400).send({ status: "error", error: "Credenciales invalidas" })
@@ -54,9 +56,17 @@ router.post('/login', (req,res) => {
     }
 })
 
-router.get('/current', passport.authenticate('jwt',{session:false}),(res,req) => {
-    //res.send(req.user)
-    res.redirect('/current');
+
+// router.post('/register', passport.authenticate('register', { failureRedirect: '/failregister' }), async (req, res) => {
+//     res.send({ status: "success", message: "usuario registrado" })
+// });
+
+
+
+router.get('/current', passport.authenticate('jwt',{session:false}),(req,res) => {
+    res.send(req.user)
+    //res.redirect('/current');
+
 })
 
 export default router;

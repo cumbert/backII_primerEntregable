@@ -2,7 +2,6 @@ import passport from "passport";
 import local from 'passport-local'
 import userService from '../models/user.js'
 import { createHash, isValidPassword } from '../utils.js'
-//import jwt from 'passport-jwt'
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt'
 
 
@@ -62,8 +61,7 @@ import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt'
 // }
 
 
-//const JWTStrategy = jwt.Strategy
-//const ExtractJWT =  jwt.ExtractJwt
+
 
 const cookieExtractor = (req) =>{
     let token = null
