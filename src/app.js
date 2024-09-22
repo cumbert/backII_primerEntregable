@@ -31,8 +31,6 @@ app.use(session({
     store: MongoStore.create({ mongoUrl: 'mongodb+srv://admin:Coder2024@cluster0.8vmpp.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0' })
 }));
 
-
-
 app.use(express.static('public'))
 app.use(express.json())
 app.use(cookieParser())
