@@ -8,7 +8,10 @@ import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt'
 const cookieExtractor = (req) =>{
     let token = null
     console.log(req.headers)
-    if(req && req.headers && req.headers.authorization){
+    if (req && req.cookies) {
+        token = req.cookies.token
+    }
+    if(!token && req.headers && req.headers.authorization){
         token = req.headers.authorization.split(' ')[1]
     }
     return token

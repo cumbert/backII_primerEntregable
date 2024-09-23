@@ -37,10 +37,9 @@ const generateToken = (user) => {
 }
 
 const authToken = (req, res, next) => {
-    const token = req.cookies.authToken; 
-    
+    const token = req.cookies.token
     if (!token) return res.status(401).send({ error: "No autenticado" });
-
+    
     jwt.verify(token, PRIVATE_KEY, (error, credentials) => {
         if (error) return res.status(403).send({ error: "No autorizado" });
         req.user = credentials.user;

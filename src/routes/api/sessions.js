@@ -47,10 +47,16 @@ router.post('/login', async (req,res) => {
             const passwordIsValid = isValidPassword(user, password);
             if (!passwordIsValid) {
                 return res.status(401).send({ message: "Contraseña incorrecta" });
-            }
-    
+            }    
             
             const token = generateToken(user);
+
+            res.cookie('token', token, {
+                httpOnly: true,  // No accesible desde el lado del cliente (JavaScript)
+                secure: process.env.NODE_ENV === 'production',  // Solo HTTPS en producción
+                maxAge: 3600000  // 1 hora de duración
+            })
+
             res.send({ message: "Inicio de sesión exitoso", token });
         } catch (error) {
             res.status(500).send({ error: "Error al iniciar sesión" });
@@ -59,7 +65,7 @@ router.post('/login', async (req,res) => {
 })
 
 router.get('/current', authToken, (req, res) => {
-    res.send(req.user)
+        res.send(req.user)
 })
 
 export default router;
